@@ -1,0 +1,66 @@
+TITLE Factorial, Positive Integers     (factorial.asm)
+
+;This program calculates factorial for any n given n > 0
+
+INCLUDE Irvine32.inc
+
+.data
+text1 db "Enter the value of n to calculate the factorial (-1 to quit):", 0
+text2 db "The factorial is: ", 0
+text3 db "Error: Calculated value cannot fit into 32 bits", 0
+
+num dd ?
+tmp dd ?
+factorial dd ?
+
+.code
+main PROC
+
+	mov	edx, offset text1     ; Move Initial Message to EDX
+	call writestring           ; Display message for user to enter n 
+	call readint	            ; Collect User Input
+	cmp eax, 0			  ; Check if number is 0
+	je LZERO
+	cmp eax, -1			  ; Check if number is -1
+	je EXPROC
+	mov num,eax                ; Store user input in variable
+	mov factorial, eax         ; Store n in factorial variable
+	mov tmp, eax               ; Store n in tmp variable
+
+	LZERO:
+		mov eax, 1
+		mov edx, offset text2
+		call writestring      ; Display success message
+		call writeint         ; Display factorial of 0
+		jmp EXPROC            ; Exit Program
+		
+	FACT: 
+	     cmp tmp,1             ; Check if we have gotten to the last factorial which is 1
+		jz RESULT             ; If Zero flag is set, go to result
+		mov ebx, factorial    ; Move Factorial total to EBX
+		mov eax, tmp          ; Tmp contains current n, move that into EAX 
+		sub eax,1             ; Subtract 1 from N in EAX
+ 		mov tmp, eax          ; Store next N in tmp variable for next loop
+		mul ebx               ; Multiply EBX(Factorial Total) and EAX (Next N) and store the result in EAX
+		jo ERROR              ; If Overflow, show Error message
+		mov factorial, eax    ; Store new factorial total in factorial variable
+		loop FACT             ; Loop
+
+	ERROR:
+		mov edx, offset text3  ; Move Error message to EDX
+		call writestring      ; Display Error Message
+		jmp EXPROC            ; Exit Program
+
+	RESULT:
+		mov eax, factorial    ; Move Factorial Total to EAX
+		mov edx, offset text2  ; Move Success message to EDX 
+		call writestring      ; Display success message
+		call writeint         ; Display calculated factorial
+		jmp EXPROC            ; Exit Program
+
+	EXPROC:
+		call crlf
+		call exitprocess
+	exit
+main ENDP
+END main

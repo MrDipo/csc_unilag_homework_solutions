@@ -1,0 +1,106 @@
+TITLE Greatest Common Divisor, Recursive (gcd.asm)
+; This program finds the GCD of five pairs of integers and then displays the results on screen
+
+INCLUDE Irvine32.inc
+.data
+        msg BYTE "The GCD of ",0
+        msg1 BYTE "(5,20): ",0
+        msg2 BYTE "(24,18): ",0 
+        msg3 BYTE "(11,7): ",0 
+        msg4 BYTE " (432,226): ",0
+        msg5 BYTE "(26,13): ",0
+.code
+; test program
+main PROC
+     ; find the GCD of (5,2)
+     push 5                              ; pass a=5 
+     push 20                             ; pass b=20
+     call Rec_Euclid_GCD                 ; call Rec_Euclid_GCD procedure 
+     ; display the result mov edx, 
+     mov edx, OFFSET msg
+     call WriteString
+     mov edx, OFFSET msg1
+     call WriteString
+     call WriteDec                       ; display GCD
+     call Crlf
+     call Crlf
+
+     ; find the GCD of (24,18)
+     push 24                           ; pass a=24
+     push 18                           ; pass b=18
+     call Rec_Euclid_GCD                 ; call Rec_Euclid_GCD procedure 
+     ; display the result mov edx, 
+     mov edx, OFFSET msg
+     call WriteString
+     mov edx, OFFSET msg2
+     call WriteString
+     call WriteDec                       ; display GCD
+     call Crlf
+     call Crlf
+
+     ; find the GCD of (11,7)
+     push 11                           ; pass a=11
+     push 7                            ; pass b=7
+     call Rec_Euclid_GCD                 ; call Rec_Euclid_GCD procedure 
+     ; display the result mov edx, 
+     mov edx, OFFSET msg
+     call WriteString
+     mov edx, OFFSET msg3
+     call WriteString
+     call WriteDec                       ; display GCD
+     call Crlf
+     call Crlf
+
+     ; find the GCD of (432,226)
+     push 432                           ; pass a=432 
+     push 226                           ; pass b=226
+     call Rec_Euclid_GCD                 ; call Rec_Euclid_GCD procedure 
+     ; display the result mov edx, 
+     mov edx, OFFSET msg
+     call WriteString
+     mov edx, OFFSET msg4
+     call WriteString
+     call WriteDec                       ; display GCD
+     call Crlf
+     call Crlf
+
+     ; test program main PROC
+     ; find the GCD of (26,13)
+     push 26                              ; pass a=26
+     push 13                             ; pass b=13
+     call Rec_Euclid_GCD                 ; call Rec_Euclid_GCD procedure 
+     ; display the result mov edx, 
+     mov edx, OFFSET msg
+     call WriteString
+     mov edx, OFFSET msg5
+     call WriteString
+     call WriteDec                       ; display GCD
+     call Crlf
+     call Crlf
+     exit
+     main ENDP
+
+    ;************************************************************
+    ; Euclid_GCD
+    ; Finds the GCD of two numbers using recursion
+    ; Receives: [ebp + 12] = dividend, [ebp+8] = divisor
+    ; Return EAX = GCD
+    ;************************************************************
+    Rec_Euclid_GCD PROC
+            push ebp
+            mov ebp,esp
+            mov eax, [ebp + 12]         ; eax = a
+            mov ebx, [ebp + 8]          ; ebx = b
+            cmp ebx, 0                  ; if b = 0, return a as GCD
+            je L2
+            mov edx,0                   ; otherwise continue
+            div ebx                     ; perform modulo division of eax and ebx then store the answer in edx
+            mov eax,edx                 ; move edx to eax
+            push ebx                    ; pass b as a for next call
+            push eax                    ; push the modulo division in eax as the next b in the next call
+            call Rec_Euclid_GCD         ; call Rec_Euclid_GCD recursively
+        L2:
+            pop ebp                     ; return eax
+            ret 8                       ; free the used stack space
+    Rec_Euclid_GCD ENDP
+    END main

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Be19QZoBQghYCHn8IyyydxEC9Ry5HXYlCEybPKrcZla8yl+UNuAWSwjssPl6wEqoE3uXAHXHB9rjJC7RHwRLSA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Oladipupo\\Documents\\Projects and Assignments\\CSC 322[E]\\Generic Sort\\Generic Sort.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Oladipupo\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Oladipupo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Oladipupo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Oladipupo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.8\\microsoft.netcore.app.host.win-x64.5.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
